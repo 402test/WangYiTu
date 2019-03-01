@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.db import models
 
+from user.models import UserProfile
 # Create your models here.
 
 class Multi_M(models.Model):
@@ -25,3 +26,12 @@ class Multi_M(models.Model):
 
 
 #  评论    两个外键   待完善
+
+class Comment(models.Model):
+    multi = models.ForeignKey(Multi_M,verbose_name='媒体文件',on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile,verbose_name='用户',on_delete=models.CASCADE)
+    txt = models.CharField(max_length=200,verbose_name='评论')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
+    class Meta:
+        verbose_name = '评论'
+        verbose_name_plural = verbose_name

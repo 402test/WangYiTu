@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 
 from django.contrib.auth.models import AbstractUser
@@ -9,7 +8,6 @@ class UserProfile(AbstractUser):
     birday = models.DateField(verbose_name='生日',null=True,blank=True)
     gender = models.CharField(max_length=6,choices=(('male','男'),('female','女')),default="female")
     image = models.ImageField(upload_to='imgage/%Y/%m',default='image/defalt.jpg',max_length=100)
-
     class Meta:
         verbose_name = '用户信息'
         verbose_name_plural = verbose_name
@@ -23,5 +21,16 @@ class EmailVerifyRecord(models.Model):
     email = models.EmailField(max_length=50,verbose_name='邮箱')
     send_type = models.CharField(max_length=10,choices=(('register','注册'),('forget','找回密码')))
 
-
-
+    class Meta:
+        verbose_name = '验证码'
+        verbose_name_plural  = verbose_name
+# class Collection_M(models.Model):
+#
+#     user = models.ForeignKey(UserProfile,verbose_name='用户', on_delete=models.CASCADE)
+#     multi = models.ForeignKey(Multi_M, verbose_name='媒体文件', on_delete=models.CASCADE)
+#     open = models.CharField(max_length=10,choices=(('t','公布'),('f','不公布')))
+#     add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
+#
+#     class Meta:
+#         verbose_name = '用户收藏'
+#         verbose_name_plural = verbose_name
