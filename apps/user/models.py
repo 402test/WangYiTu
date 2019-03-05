@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class UserProfile(AbstractUser):
-    nick_name = models.CharField(max_length=50,verbose_name='昵称',default='')
+    nick_name = models.CharField(max_length=50,verbose_name='昵称',default='默认昵称')
     birday = models.DateField(verbose_name='生日',null=True,blank=True)
     gender = models.CharField(max_length=6,choices=(('male','男'),('female','女')),default="female")
     image = models.ImageField(upload_to='imgage/%Y/%m',default='image/defalt.jpg',max_length=100)

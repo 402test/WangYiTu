@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>注册</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="/static/css/workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/signin.css" rel="stylesheet">
+
+
+      <script
+  src="https://code.jquery.com/jquery-1.11.3.js"
+  integrity="sha256-IGWuzKD7mwVnNY01LtXxq3L84Tm/RJtNCYBfXZw3Je0="
+  crossorigin="anonymous"></script>
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="/static/js/warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        
+          <a class="navbar-brand" href="/">喝酒不叫我</a>
+        
+       
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <form class="form-signin" action="/register/" method="post" onsubmit="return for_password();">
+        <h2 class="form-signin-heading">注册</h2>
+
+        <label for="inputEmail" class="sr-only">邮箱</label>
+        <input type="email" value="{{ regiter_form.data.email }}" name="email" id="inputEmail" class="form-control" placeholder="邮箱" required autofocus>
+        <label for="inputPassword" class="sr-only">密码</label>
+        <input type="password" value="{{ regiter_form.data.password }}"  name="password" id="inputPassword" class="form-control" placeholder="密码" required>
+
+          <label for="inputPasswordagain" class="sr-only">再输入密码</label>
+        <input type="password" id="inputPasswordagain" class="form-control" id="inputPasswordagain" placeholder="再输入密码" required>
+
+
+           {{ regiter_form.captcha }}
+          {{ regiter_form.errors.captcha }}
+        <div class="checkbox">
+          <label>
+            <a href="/login/">已经注册？立即登陆</a>
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+          {% csrf_token %}
+      </form>
+
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/static/js/workaround.js"></script>
+  </body>
+
+<script>    //验证码点击刷新
+		$('img.captcha').click(function() {
+			$.getJSON('/captcha/refresh/',function(json) {
+                // This should update your captcha image src and captcha hidden input
+				console.log(json);
+				$("img.captcha").attr("src",json.image_url);
+				$("#id_captcha_0").val(json.key);
+			});
+
+			return false;
+		});
+
+		function for_password() {
+            if ($('#inputPassword').val()!=$('#inputPasswordagain').val()){
+                alert('两次输入密码不一样')
+
+                return false
+            }
+        }
+
+{%  if msg == 'true' %}
+    alert('验证信息已经发送到你的邮箱 查看邮箱验证之后就能登陆,请注意邮箱的垃圾箱')
+    window.location.href="/login/";
+{% endif %}
+    {% if msg == 'already' %}
+    alert('该邮箱已经被注册,若出现问题联系管理员 qq507648637')
+
+{% endif %}
+    {% if msg == 'erroe' %}
+    alert('抱歉，注册邮件发送失败,若出现问题联系管理员 qq507648637')
+
+{% endif %}
+</script>
+
+</html>

@@ -42,12 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'captcha',
     'user',
     'multi',
     'collection'
 ]
 
-AUTH_USER_MODEL = 'user.UserProfile'   #  重载users
+AUTH_USER_MODEL = 'user.UserProfile'   #  重载user
 
 
 MIDDLEWARE_CLASSES = [
@@ -82,6 +83,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Wa.wsgi.application'
+
+
+#  重写验证
+AUTHENTICATION_BACKENDS = (
+    'user.views.CustomBackend',
+)
 
 
 # Database
@@ -140,3 +147,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.sina.com"    # 送电子邮件的主机
+EMAIL_PORT = 25     #  端口
+EMAIL_HOST_USER = "huang_c_w@sina.com"
+EMAIL_HOST_PASSWORD = "1jia1dengyu2"
+EMAIL_USE_TLS= False
+EMAIL_FROM = "huang_c_w@sina.com"
