@@ -1,52 +1,19 @@
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-{% load staticfiles %}
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+{% extends 'base.html' %}
+ {% block jq %}
 
-    <title>喝酒不叫我</title>
-
-<script
+    <script
   src="https://code.jquery.com/jquery-1.11.3.js"
   integrity="sha256-IGWuzKD7mwVnNY01LtXxq3L84Tm/RJtNCYBfXZw3Je0="
   crossorigin="anonymous"></script>
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="/static/css/workaround.css" rel="stylesheet">
+  {% endblock %}
 
-    <!-- Custom styles for this template -->
-    <link href="/static/css/signin.css" rel="stylesheet">
+{% block singin %}
+  <link href="/static/css/signin.css" rel="stylesheet">
+{% endblock %}
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="/static/js/warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        
-          <a class="navbar-brand" href="/">喝酒不叫我</a>
-        
-       
-      </div>
-    </nav>
+{% block table %}
 
     <div class="container">
 
@@ -65,8 +32,9 @@
 
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" value="remember-me"> 记住密码
               <a href="/register/">没有账号？立即注册</a>
+               <a href="/forget/">忘记密码</a>
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
@@ -76,25 +44,15 @@
     </div> <!-- /container -->
 
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/static/js/workaround.js"></script>
-  </body>
+ {% endblock %}
 
 
 
-<script>    //验证码点击刷新
-		$('img.captcha').click(function() {
-			$.getJSON('/captcha/refresh/',function(json) {
-                // This should update your captcha image src and captcha hidden input
-				console.log(json);
-				$("img.captcha").attr("src",json.image_url);
-				$("#id_captcha_0").val(json.key);
-			});
+{% block refresh %}
 
-			return false;
-		});
-</script>
+    <script src="/static/js/Refresh.js"></script>
+
+{% endblock %}
 
 
 
-</html>

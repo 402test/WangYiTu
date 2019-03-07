@@ -3,15 +3,15 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.base import View
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 # Create your views here.
 
 
-from .form import LoginForm,RegisterForm
-from user.models import UserProfile
-from tool.tool_send_email import send_register_email
+from .form import LoginForm,RegisterForm,ForgetForm
+from user.models import UserProfile,EmailVerifyRecord
+from .tool.tool_send_email import send_register_email
 
 
 # 重写登陆验证机制   实现用户名  邮箱都可以登陆
@@ -31,6 +31,8 @@ class LoginView(View):
     '''
 
     def get(self, request):
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('index'))
         login_form = LoginForm()    #  form  里面有验证码  传递到前端
         return render(request, 'login.html', {'login_form': login_form})
 
@@ -93,3 +95,63 @@ class RegisterView(View):
             return render(request, "register.html",{'msg':'true' ,'regiter_form':regiter_form})
         else:
             return render(request,'register.html',{'regiter_form':regiter_form})
+
+
+
+class LogoutView(View):
+    """
+    用户登出
+    """
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect(reverse("index"))
+
+class ForgetPwdView(View):
+    '''
+    忘记密码的傻孩子来了
+    '''
+    def get(self,request):
+        forgetform = ForgetForm()   #  验证码
+        return render(request,'forget.html',{'forgetform':forgetform})
+
+    def post(self,request):
+        forgetform = ForgetForm(request.POST )
+        if forgetform.is_valid():
+            email = request.POST.get('email')
+            #  判断该邮箱是否注册
+            user = UserProfile.objects.get(email=email)
+            if not user:
+                return render(request, 'forget.html', {'msg': 'not_register', 'forgetform': forgetform})
+            email_res = send_register_email(email,'forget')
+            if not email_res:
+                return render(request, 'forget.html', {'msg': 'error', 'forgetform': forgetform})
+            #  修改user 的 updatapassword
+            user.updata_pwd = make_password(request.POST.get('password'))
+            user.save()
+            return render(request,'forget.html',{'msg':'true', 'forgetform': forgetform})
+
+        else:
+            return render(request, 'forget.html', {'forgetform': forgetform})
+
+
+
+
+class Active_User_View(View):
+    def get(self,request,active_code):
+            code_model = EmailVerifyRecord.objects.get(code=active_code)
+            if not code_model:
+                return render(request,'active_error.html')
+            user = UserProfile.objects.get(email=code_model.email)
+            if code_model.send_type =='register':
+                # 注册激活 验证码
+                user.is_active = True
+                user.save()
+                return HttpResponse('激活成功')
+            elif code_model.send_type =='forget':
+                user.password = user.updata_pwd
+                user.save()
+                return HttpResponse('修改成功')
+
+
+class Active_Pwd_View(View):
+    pass

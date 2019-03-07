@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
  {% block jq %}
 
@@ -13,38 +12,32 @@
   <link href="/static/css/signin.css" rel="stylesheet">
 {% endblock %}
 
+
 {% block table %}
-
-  <div class="container">
-
-      <form class="form-signin" action="/register/" method="post" onsubmit="return for_password();">
-        <h2 class="form-signin-heading">注册</h2>
+<div class="container">
+      <form class="form-signin" method="post" action="/forget/" onsubmit="return for_password();">
+          <h2 class="form-signin-heading">重置密码</h2>
 
         <label for="inputEmail" class="sr-only">邮箱</label>
-        <input type="email" value="{{ regiter_form.data.email }}" name="email" id="inputEmail" class="form-control" placeholder="邮箱" required autofocus>
+        <input type="text" value="{{ login_form.data.username }}" name="email"  class="form-control" placeholder="邮箱" required autofocus>
         <label for="inputPassword" class="sr-only">密码</label>
-        <input type="password" value="{{ regiter_form.data.password }}"  name="password" id="inputPassword" class="form-control" placeholder="密码" required>
+        <input type="password" name = 'password' id="inputPassword" class="form-control" placeholder="新的密码" required>
 
           <label for="inputPasswordagain" class="sr-only">再输入密码</label>
         <input type="password" id="inputPasswordagain" class="form-control" id="inputPasswordagain" placeholder="再输入密码" required>
 
 
-           {{ regiter_form.captcha }}
-          {{ regiter_form.errors.captcha }}
-        <div class="checkbox">
-          <label>
-            <a href="/login/">已经注册？立即登陆</a>
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-          {% csrf_token %}
+           {{ forgetform.captcha }}
+          {{ forgetform.errors.captcha }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">提交</button>
+           {% csrf_token %}
       </form>
 
     </div> <!-- /container -->
 
 
- {% endblock %}
 
+{% endblock %}
 
 
 {% block refresh %}
@@ -67,12 +60,8 @@ function for_password() {
         }
 
 {%  if msg == 'true' %}
-    alert('验证信息已经发送到你的邮箱 查看邮箱验证之后就能登陆,请注意邮箱的垃圾箱')
+    alert('修改密码验证已经发送到你的邮箱 查看邮箱验证之后就能重置密码,请注意邮箱的垃圾箱')
     window.location.href="/login/";
-{% endif %}
-    {% if msg == 'already' %}
-    alert('该邮箱已经被注册,若出现问题联系管理员 qq507648637')
-
 {% endif %}
     {% if msg == 'error' %}
     alert('抱歉，注册邮件发送失败,若出现问题联系管理员 qq507648637')

@@ -140,7 +140,7 @@ USE_TZ = False    #  默认时间   不使用  国际时间
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
+#SESSION_EXPIRE_AT_BROWSER_CLOSE = True            #  session 随着  浏览器生命周期 关闭
 
 
 # Static files (CSS, JavaScript, Images)
