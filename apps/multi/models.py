@@ -14,10 +14,13 @@ class Multi_M(models.Model):
     multi_src  = models.CharField(max_length=150,verbose_name='链接')
     multi_s = models.CharField(max_length=10,verbose_name='歌手')
     nums = models.IntegerField(default=0,verbose_name='收藏数')
-    music_type =models.CharField(max_length=20, verbose_name='音乐类型',choices=(('popular','流行'),('Recommend','站长推荐'),('cure','治愈'),('rock','摇滚'),('Light_music','轻音乐')))
+    music_type =models.CharField(max_length=20, verbose_name='音乐类型',choices=(('popular','流行'),('Recommend','歌友收藏'),('cure','治愈'),('rock','摇滚')))
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
     image = models.ImageField(upload_to='imgage/%Y/%m', default='image/music.jpg', max_length=100)
 
+
+    def __str__(self):
+        return self.multi_name
     class Meta:
         verbose_name = '主页歌曲'
         verbose_name_plural = verbose_name

@@ -56,12 +56,7 @@ class LoginView(View):
             return render(request, 'login.html', {'login_form': login_form})
 
 
-class IndexView(View):
-    '''
-    主页
-    '''
-    def get(self,request):
-        return render(request,'index.html')
+
 
 class RegisterView(View):
     '''

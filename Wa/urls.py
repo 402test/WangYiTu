@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from user.views import LoginView,IndexView,RegisterView,LogoutView,ForgetPwdView,Active_User_View
+from multi.views import IndexView,TypedataView
+from user.views import LoginView,RegisterView,LogoutView,ForgetPwdView,Active_User_View
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/$',LoginView.as_view(),name='login'),
@@ -25,4 +26,5 @@ urlpatterns = [
     url(r'^logout/$',LogoutView.as_view(),name='logout'),
     url(r'^forget/$',ForgetPwdView.as_view(),name='forget'),
     url(r'^active/(?P<active_code>.*)/$', Active_User_View.as_view(), name="user_active"),
+    url(r'^type/$',TypedataView.as_view(), name='type'),
 ]
