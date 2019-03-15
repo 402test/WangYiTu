@@ -37,9 +37,11 @@ function myeach(datas) {
             val+="<td>"+t[0]+"</td>"
             val+="<td>"+t[1]+"</td>"
             val+="<td>"+t[2]+"</td>"
-            val+="<td><button id ='"+t[3]+"'>收藏</button>"
-            val+="<td><a href='"+t[4]+"'>播放</a></td>"
+           val+="<td><button onclick=" +  "'funcollection(" + '"'   +t[3] +'"' +")'" +">收藏</button></td>"
+            val+="<td><button onclick=" +  "'funcopen(" + '"'   +t[4] +'"' +")'" +">播放</button></td>"
             val+="</tr>"
         })
     $('tbody').html(val)
 }
+
+

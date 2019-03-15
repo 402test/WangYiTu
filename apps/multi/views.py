@@ -6,7 +6,8 @@ from django.core.paginator import Paginator
 # Create your views here.
 from django.views.generic.base import View
 from multi.models import Multi_M
-
+from utils.mixin_utils import LoginRequiredMixin
+from spider.search import Index_Spider
 class IndexView(View):
     '''
     主页   每日推荐
@@ -30,5 +31,13 @@ class TypedataView(View):
         for i in p.page(int(id)):
             L_music.append([i.multi_name,i.multi_s,i.nums,i.id,i.multi_src])
         return HttpResponse(json.dumps({'data':L_music,'nums':p.num_pages,'type':type}), content_type='application/json')
+
+
+class SearchView(View):
+    def get(self,request):
+        key = request.GET.get('key')
+        sp = Index_Spider(key)
+        data = sp.run()
+        return HttpResponse(data,content_type='application/json')
 
 

@@ -1,4 +1,9 @@
 # encoding: utf-8
+'''
+
+独立的爬虫py  跟框架没有联系   改变 url  下载不同的 歌单分类里面的音乐
+'''
+
 __author__ = 'ChengweiHuang'
 __date__ = '2019/3/11 9:37'
 import requests

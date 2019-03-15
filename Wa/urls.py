@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from multi.views import IndexView,TypedataView
+from multi.views import IndexView,TypedataView,SearchView
+from collection.views import CollectionView
 from user.views import LoginView,RegisterView,LogoutView,ForgetPwdView,Active_User_View
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,4 +28,6 @@ urlpatterns = [
     url(r'^forget/$',ForgetPwdView.as_view(),name='forget'),
     url(r'^active/(?P<active_code>.*)/$', Active_User_View.as_view(), name="user_active"),
     url(r'^type/$',TypedataView.as_view(), name='type'),
+    url(r'^collection/$',CollectionView.as_view(), name='collection'),
+    url(r'^search/$',SearchView.as_view(),name='search'),
 ]

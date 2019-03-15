@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-
+{% block viewport %}
+    <meta name="viewport" content="width=device-width">
+  {% endblock %}
 {% block header %}
 
     <link href="/static/css/content.css" rel="stylesheet">
@@ -26,10 +28,11 @@
 
             <li><a href="#">Help</a></li>
           </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-           <input type="submit" value ="启动！" class="btn">
-          </form>
+          <div class="navbar-form navbar-right">
+            <input type="text" id="ser" class="form-control" placeholder="音乐搜索">
+
+              <button  class="btn" onclick="funsearch()"> 启动!</button>
+          </div>
         </div>
       </div>
     </nav>
@@ -82,7 +85,7 @@
                   <th>音乐标题</th>
                   <th>歌手</th>
 
-                  <th>点赞数</th>
+                  <th>收藏数</th>
                     <th>收藏</th>
                   <th>播放</th>
                 </tr>
@@ -91,17 +94,23 @@
 
                 {% for i in multis %}
                     <tr>
-                    <td>图片</td>
+
                 <td>{{ i.multi_name }}</td>
                   <td>{{ i.multi_s }}</td>
-                   <td><button>收藏</button></td>
-                  <td><a href="{{ i.multi_src }}">播放</a></td>
+                        <td>{{ i.nums }}</td>
+                   <td><button onclick="funcollection('{{ i.id }}')">收藏</button></td>
+                  <td><button onclick="funcopen('{{ i.multi_src }}')">播放</button></td>
 </tr>
               {% endfor %}
               </tbody>
 
 
             </table>
+<div id="vv">
+              <video id="video1" autoplay width="600" height="100" controls>
+                  <source src=""  type="audio/mpeg">
+              </video>
+</div>
            <div class = 'pages'>
 
 
@@ -110,13 +119,15 @@
         </div>
       </div>
 
-
-
-
     </div>
 
 
  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="/static/js/send_type.js"></script>
+    <script src="/static/js/multi.js"></script>
+    <script>
+    myVid=document.getElementById("video1");
+    myVid.volume=0.3;
+    </script>
 
 {% endblock %}
