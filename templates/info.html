@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block index %}
+
+<div class="col-xs-6 col-sm-6 ">
+<h2 class="sub-header">我的收藏</h2>
+
+<div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">歌单</div>
+      <!--<div class="panel-body">
+
+      </div>  -->
+
+      <!-- Table -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>歌名</th>
+            <th>歌手</th>
+            <th>播放</th>
+              <th>评论</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+               <td><span class="badge">14</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+
+
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">视频</div>
+      <div class="panel-body">
+<p>打算再写一个视频模块 , 占位</p>
+      </div>
+
+      <!-- Table -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+</div>
+</div>
+
+  <div class="col-xs-6 col-sm-6">
+<h2 class="sub-header" >我的资料</h2>
+<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">邮箱</label>
+    <input type="email" disabled  class="form-control" id="exampleInputEmail1" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputUsername">用户名/登陆时可以使用</label>
+    <input type="text" class="form-control" id="exampleInputUsername" >
+  </div>
+
+      <div class="form-group">
+    <label for="exampleInputnick_name">昵称</label>
+    <input type="text" class="form-control" id="exampleInputnick_name" >
+  </div>
+
+
+
+ <div class="form-group">
+
+
+<div class="radio">
+  <label>
+    <input type="radio" name="gender" id="optionsRadios1" value="male" checked>
+    男
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="gender" id="optionsRadios2" value="female">
+  女
+  </label>
+</div>
+
+
+     <select>
+         <option>1999</option>
+     </select>
+     <select>
+         <option>1999</option>
+     </select>
+     <select>
+         <option>1999</option>
+     </select>
+     </div>
+
+
+
+
+
+
+  <div class="form-group">
+    <label for="exampleInputFile">File input</label>
+    <input type="file" id="exampleInputFile">
+    <p class="help-block">你的头像</p>
+  </div>
+
+  <button type="submit" class="btn btn-default">修改</button>
+</form>
+
+
+</div>
+
+{% endblock %}

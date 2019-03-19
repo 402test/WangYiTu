@@ -15,7 +15,7 @@ class Index_Spider(object):
       'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36'
     }
 
-    def __init__(self,data,nums = 20):
+    def __init__(self,data,nums = 50):
         '''
 
         :param data:  被搜索的关键字
@@ -31,5 +31,5 @@ class Index_Spider(object):
 
 
 if __name__ =='__main__':
-    sp = Index_Spider('春天里')
+    sp = Index_Spider('许嵩')
     sp.run()

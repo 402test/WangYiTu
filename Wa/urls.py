@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from multi.views import IndexView,TypedataView,SearchView
 from collection.views import CollectionView
-from user.views import LoginView,RegisterView,LogoutView,ForgetPwdView,Active_User_View
+from user.views import LoginView,RegisterView,LogoutView,ForgetPwdView,Active_User_View,InfoView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/$',LoginView.as_view(),name='login'),
@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^type/$',TypedataView.as_view(), name='type'),
     url(r'^collection/$',CollectionView.as_view(), name='collection'),
     url(r'^search/$',SearchView.as_view(),name='search'),
+    url(r'^user_info/$',InfoView.as_view(),name = 'info')
 ]

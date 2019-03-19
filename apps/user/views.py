@@ -7,8 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 # Create your views here.
-
-
+from utils.mixin_utils import LoginRequiredMixin
 from .form import LoginForm,RegisterForm,ForgetForm
 from user.models import UserProfile,EmailVerifyRecord
 from .tool.tool_send_email import send_register_email
@@ -148,5 +147,7 @@ class Active_User_View(View):
                 return HttpResponse('修改成功')
 
 
-class Active_Pwd_View(View):
-    pass
+
+class InfoView(LoginRequiredMixin,View):
+    def get(self,request):
+        return render(request,'info.html')

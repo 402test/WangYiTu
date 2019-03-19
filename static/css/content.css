@@ -2,3 +2,8 @@
    cursor: pointer;
 transform:scale(1.2);
 }
+#vv{
+  position:fixed; left:50%;
+   bottom: 0px;
+    margin-left:-300px;
+}
