@@ -23,16 +23,21 @@
               <th>评论</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-               <td><span class="badge">14</span></td>
-          </tr>
 
+             <tbody>
+
+        {% for i in music %}
+          <tr>
+            <th scope="row"> {{ forloop.counter }}</th>
+            <td>{{ i.multi.multi_name}}</td>
+            <td>{{ i.multi.multi_s}}</td>
+            <td>@mdo</td>
+          <td><span class="badge">14</span></td>
+          </tr>
+        {% endfor %}
         </tbody>
+
+
       </table>
     </div>
 
@@ -55,12 +60,13 @@
             <th>Username</th>
           </tr>
         </thead>
-        <tbody>
+     <tbody>
           <tr>
             <th scope="row">1</th>
             <td>Mark</td>
             <td>Otto</td>
             <td>@mdo</td>
+               <td><span class="badge">14</span></td>
           </tr>
 
         </tbody>
@@ -71,19 +77,35 @@
 
   <div class="col-xs-6 col-sm-6">
 <h2 class="sub-header" >我的资料</h2>
-<form>
+   <form  enctype="multipart/form-data" autocomplete="off" method="post" action="{% url 'image_update' %}" target='frameFile'>
+                        <label for="avatarUp">
+                            <span  >
+                                <img width="100" height="100"  src="{{ MEDIA_URL }}{{ user.image }}"/>
+                            </span>
+                            <span class="" style="margin-left:70px;">
+
+                                <input type="file" name="image" id="" class=""/>
+                            </span>
+                        </label>
+                                <input type="submit" value="提交">
+                        {% csrf_token %}
+                    </form>
+
+  <br>
+
+    <form action="/user_info/" method="post">
   <div class="form-group">
     <label for="exampleInputEmail1">邮箱</label>
-    <input type="email" disabled  class="form-control" id="exampleInputEmail1" placeholder="Email">
+    <input type="email" disabled  class="form-control" id="exampleInputEmail1" placeholder="Email" value="{{ user.email }}">
   </div>
   <div class="form-group">
     <label for="exampleInputUsername">用户名/登陆时可以使用</label>
-    <input type="text" class="form-control" id="exampleInputUsername" >
+    <input type="text" name="username" class="form-control" required id="exampleInputUsername"  value="{{ user.username }}">
   </div>
 
       <div class="form-group">
     <label for="exampleInputnick_name">昵称</label>
-    <input type="text" class="form-control" id="exampleInputnick_name" >
+    <input type="text" name="nick_name" class="form-control" required id="exampleInputnick_name" value="{{ user.nick_name }}" >
   </div>
 
 
@@ -93,44 +115,33 @@
 
 <div class="radio">
   <label>
-    <input type="radio" name="gender" id="optionsRadios1" value="male" checked>
+    <input type="radio" name="gender" id="optionsRadios1" value="male" {%  if user.gender == 'male' %} checked {% endif %}>
     男
   </label>
 </div>
 <div class="radio">
   <label>
-    <input type="radio" name="gender" id="optionsRadios2" value="female">
+    <input type="radio" name="gender" id="optionsRadios2" value="female" {%  if user.gender == 'female' %} checked {% endif %}>
   女
   </label>
 </div>
 
 
-     <select>
-         <option>1999</option>
-     </select>
-     <select>
-         <option>1999</option>
-     </select>
-     <select>
-         <option>1999</option>
-     </select>
      </div>
 
-
-
-
-
-
-  <div class="form-group">
-    <label for="exampleInputFile">File input</label>
-    <input type="file" id="exampleInputFile">
-    <p class="help-block">你的头像</p>
-  </div>
-
   <button type="submit" class="btn btn-default">修改</button>
+    {% csrf_token %}
 </form>
 
+      <div id="msg">
+
+      </div>
 
 </div>
 
+    <script>
+        {% if msg %}
+   document.getElementById('msg').innerHTML = '{{ msg }}'
+        {% endif %}
+    </script>
 {% endblock %}

@@ -16,7 +16,7 @@ class Multi_M(models.Model):
     nums = models.IntegerField(default=0,verbose_name='收藏数')
     music_type =models.CharField(max_length=20, verbose_name='音乐类型',choices=(('popular','流行'),('Recommend','歌友收藏'),('cure','治愈'),('rock','摇滚')))
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
-    image = models.ImageField(upload_to='imgage/%Y/%m', default='image/music.jpg', max_length=100)
+    image = models.ImageField(upload_to='image/%Y/%m', default='image/music.jpg', max_length=100)
 
 
     def __str__(self):

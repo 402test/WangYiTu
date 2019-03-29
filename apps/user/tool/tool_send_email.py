@@ -6,6 +6,10 @@ from django.core.mail import send_mail
 from user.models import EmailVerifyRecord
 
 from Wa.settings import EMAIL_FROM
+from Wa.celery import app
+
+
+
 def random_str(randomlength=8):
     str = ''
     chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
@@ -16,7 +20,9 @@ def random_str(randomlength=8):
     return str
 
 
+#  异步
 
+#@app.task
 def send_register_email(email, send_type="register"):
     code = random_str(16)
     email_title = "喝酒不叫我---注册"

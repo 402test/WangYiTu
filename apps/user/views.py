@@ -8,9 +8,10 @@ from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 # Create your views here.
 from utils.mixin_utils import LoginRequiredMixin
-from .form import LoginForm,RegisterForm,ForgetForm
+from .form import LoginForm,RegisterForm,ForgetForm,UpdateInfoForm,ImageForm
 from user.models import UserProfile,EmailVerifyRecord
 from .tool.tool_send_email import send_register_email
+from collection.models import Collection_M
 
 
 # 重写登陆验证机制   实现用户名  邮箱都可以登陆
@@ -150,4 +151,29 @@ class Active_User_View(View):
 
 class InfoView(LoginRequiredMixin,View):
     def get(self,request):
-        return render(request,'info.html')
+        user = request.user
+        music =Collection_M.objects.filter(user = user)
+
+        return render(request,'info.html',{'user':user,'music':music})
+
+    def post(self,request):
+        user = request.user
+        music = Collection_M.objects.filter(user=user)
+        infoform  =UpdateInfoForm(request.POST,instance=user)
+        if infoform.is_valid():
+            infoform.save()  #  没有问题 则修改成功
+            return render(request, 'info.html', {'user': user,'music':music,'msg':'修改成功'})
+        else:
+            return render(request, 'info.html', {'user': user,'music':music,'msg':infoform.errors})
+
+
+class ImageUpdate(LoginRequiredMixin,View):
+    def post(self,request):
+        imgform = ImageForm(request.POST,request.FILES,instance=request.user)
+        if imgform.is_valid():
+            imgform.save()
+            return render(request, 'info.html', {'user': request.user, 'msg': '头像修改成功'})
+        else:
+            return render(request, 'info.html', {'user': request.user, 'msg': '头像修改失败'})
+
+

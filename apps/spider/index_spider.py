@@ -45,7 +45,7 @@ for i in soup.select('.f-hide li a'):
     #  下载图片
     f_src = id+'ofimg.jpg'
     f_data = requests.get(url=img_url,headers=headers_link).content
-    with open('../../../media/imgage/'+f_src,'wb') as f:
+    with open('../../../media/image/'+f_src,'wb') as f:
         f.write(f_data)
     cursor.execute(sql,[i.text,link,singer,type,f_src,datetime.now(),0])
     db.commit()

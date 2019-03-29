@@ -95,7 +95,7 @@
                 {% for i in multis %}
                     <tr>
 
-                <td>{{ i.multi_name }}</td>
+                <td><a href="music/{{ i.id }}">{{ i.multi_name }}</a></td>
                   <td>{{ i.multi_s }}</td>
                         <td>{{ i.nums }}</td>
                    <td><button onclick="funcollection('{{ i.id }}')">收藏</button></td>
@@ -113,6 +113,7 @@
 
           <div style="height: 100px"></div>
 <div id="vv">
+
               <video id="video1"  width="600" height="100" controls>
 
                   <source src="http://music.163.com/song/media/outer/url?id=167876.mp3"  type="audio/mpeg">

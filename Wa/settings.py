@@ -30,7 +30,7 @@ SECRET_KEY = 'q0&j3(-4%o+(wav9*364=0c=idb_t$ic9p+a4*+xfcvqbu3@j='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []   #  允许访问地址
 
 
 # Application definition
@@ -141,6 +141,14 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #SESSION_EXPIRE_AT_BROWSER_CLOSE = True            #  session 随着  浏览器生命周期 关闭
+
+
+
+BROKER_URL = 'redis://:huangchengwei@localhost:6379/0'  #  缓存配置
+BROKER_TRANSPORT = 'redis'
+
+
+
 
 
 # Static files (CSS, JavaScript, Images)

@@ -34,7 +34,7 @@ function myeach(datas) {
     var val = ''
     $.each(datas['data'],function (i,t) {
             val+="<tr>"
-            val+="<td>"+t[0]+"</td>"
+            val+="<td><a href='music/"+t[3]+"'>"+t[0]+"</a></td>"
             val+="<td>"+t[1]+"</td>"
             val+="<td>"+t[2]+"</td>"
            val+="<td><button onclick=" +  "'funcollection(" + '"'   +t[3] +'"' +")'" +">收藏</button></td>"

@@ -15,11 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from multi.views import IndexView,TypedataView,SearchView
+from django.views.static import serve
+from multi.views import IndexView,TypedataView,SearchView,MusicView
 from collection.views import CollectionView
-from user.views import LoginView,RegisterView,LogoutView,ForgetPwdView,Active_User_View,InfoView
+from user.views import LoginView,RegisterView,LogoutView,ForgetPwdView,Active_User_View,InfoView,ImageUpdate
+from Wa.settings import MEDIA_ROOT
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    #配置上传文件的访问处理函数
+    url(r'^media/(?P<path>.*)$',  serve, {"document_root":MEDIA_ROOT}),
     url(r'^login/$',LoginView.as_view(),name='login'),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^$',IndexView.as_view(),name='index'),
@@ -30,5 +35,7 @@ urlpatterns = [
     url(r'^type/$',TypedataView.as_view(), name='type'),
     url(r'^collection/$',CollectionView.as_view(), name='collection'),
     url(r'^search/$',SearchView.as_view(),name='search'),
-    url(r'^user_info/$',InfoView.as_view(),name = 'info')
+    url(r'^user_info/$',InfoView.as_view(),name = 'info'),
+    url(r'^image_update/$',ImageUpdate.as_view(),name = 'image_update'),
+    url(r'^music/(?P<music_id>.*)/$',MusicView.as_view(),name='music'),
 ]

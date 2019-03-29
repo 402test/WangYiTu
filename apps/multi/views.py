@@ -41,3 +41,11 @@ class SearchView(View):
         return HttpResponse(data,content_type='application/json')
 
 
+
+class MusicView(View):
+    def get(self,request,music_id):
+        music = Multi_M.objects.get(id=music_id)
+
+        return render(request,'music.html',{'music':music})
+
+
